@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+</head>
+<body id="weather-body">
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form id="city-form" method="get">
+            <input type="text" id="city-input" name="q" placeholder="Search for a city..." size="50">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Main Weather Info -->
+    <div class="weather-info">
+        <h2 id="city-name">City Name</h2> <!-- Changed to h2 for better semantics -->
+        <div class="temperature">--°</div>
+        <h3 id="weather-condition">Condition</h3>
+        <p id="high-low">H: --° L: --°</p> <!-- Changed to p for high-low to be more in-line -->
+    </div>
+
+
+    <!-- Information Boxes -->
+    <div class="box-container">
+        <div class="box severe-weather">Severe Weather</div>
+        <div class="box today-forecast">Today's Forecast</div>
+        <div class="box ten-day-forecast">
+            <h3>10-DAY FORECAST</h3>
+            <ul id="forecast-list">
+                <!-- JavaScript will dynamically insert forecast data here -->
+            </ul>
+        </div>
+        <div class="box wind">WIND</div>
+        <div class="box precipitation-map">PRECIPITATION MAP</div>
+        <div class="box visibility">VISIBILITY</div>
+        <div class="box uv-index">UV INDEX</div>
+        <div class="box sunset">SUNSET</div>
+        <div class="box feels-like">FEELS LIKE</div>
+        <div class="box precipitation">PRECIPITATION</div>
+        <div class="box first-quarter">FIRST QUARTER</div>
+        <div class="box humidity">HUMIDITY</div>
+        <div class="box pressure">PRESSURE</div>
+        <div class="box averages">AVERAGES</div>
+    </div>
+
+
+
+<!-- Settings Button to open the modal -->
+<button id="settings-button">Settings</button>
+
+<!-- Modal for Settings -->
+<div id="settings-modal" class="modal">
+    <div class="modal-content">
+        <h2>Settings</h2>
+        
+        <!-- Temperature Unit Preference -->
+        <label for="temp-unit">Temperature Unit:</label>
+        <select id="temp-unit">
+            <option value="celsius">Celsius (°C)</option>
+            <option value="fahrenheit">Fahrenheit (°F)</option>
+        </select>
+
+        <!-- Wind Unit Preference -->
+        <label for="wind-unit">Wind Unit:</label>
+        <select id="wind-unit">
+            <option value="mph">Miles per hour (mph)</option>
+            <option value="km/h">Kilometers per hour (km/h)</option>
+            <option value="m/s">Meters per second (m/s)</option>
+            <option value="bft">Beaufort (bft)</option>
+            <option value="kn">Knots (kn)</option>
+        </select>
+
+        <!-- Default City Selection or "My Location" -->
+        <label for="default-city">Default City:</label>
+        <input type="text" id="default-city" placeholder="Enter a city" autocomplete="off">
+        <ul id="city-suggestions" class="suggestions-list"></ul>
+
+        <button id="use-my-location">Use My Location</button>
+
+
+        <!-- Save Button -->
+        <button id="save-settings">Save Settings</button>
+    </div>
+</div>
+
+
+</body>
+</html>

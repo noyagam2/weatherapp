@@ -1,0 +1,361 @@
+body {
+    background-image: url("https://www.thecalifornian.com/gcdn/-mm-/e5c305e00d80354d1c0350948b3ccc39c5d4956e/c=0-202-3867-2377/local/-/media/Salinas/2015/03/19/B9316661963Z.1_20150319105958_000_GLQA8VSAM.1-0.jpg?width=660&height=372&fit=crop&format=pjpg&auto=webp");
+    background-size: cover; /* Ensures the image covers the entire page */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    backdrop-filter: blur(5px); /* Blur the background */
+    margin: 0;
+    font-family: Arial, sans-serif; /* If you prefer another font, change it here */
+    color: white;
+
+}
+
+.search-bar {
+    text-align: right;
+    padding: 10px;
+}
+
+.search-bar input {
+    padding: 5px; /* Adds space inside the input */
+    border-radius: 20px; /* Gives the input rounded corners */
+    border: 1px solid #ccc; /* Adds a light border */
+    width: 200px; /* Sets a fixed width for the search bar */
+    font-size: 12px; /* Increases the text size for readability */
+}
+
+.search-bar input:focus {
+    outline: none; /* Removes the default blue outline */
+}
+/* Main container for weather info */
+.weather-info {
+    text-align: center;
+    margin-top: 30px; /* Slightly reduced margin */
+    color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+    font-family: 'Roboto', sans-serif; /* Use a cleaner font */
+}
+
+/* City name styling */
+.weather-info h2 {
+    font-size: 28px; /* Smaller for city name */
+    font-weight: 400; /* Lighter font for sleek look */
+    margin: 0;
+    opacity: 0.85; /* A bit of transparency */
+}
+
+/* Temperature styling */
+.weather-info .temperature {
+    font-size: 50px; /* Reduced size */
+    font-weight: 600; /* Bold, but not too heavy */
+    margin: 5px 0; /* Tighter space around temperature */
+    line-height: 1; /* Tightens space between temp and condition */
+    letter-spacing: -1px; /* Slight letter spacing for compactness */
+}
+
+/* Weather condition */
+.weather-info h3 {
+    font-size: 20px; /* Smaller for condition */
+    font-weight: 300; /* Light font weight for clean look */
+    margin: 5px 0; /* Reduced space */
+    opacity: 0.9; /* Subtle transparency */
+}
+
+/* High and low temperature */
+.weather-info p#high-low {
+    font-size: 16px; /* Smaller for high/low */
+    font-weight: 300; /* Light weight */
+    margin-top: 10px; /* More space below the condition */
+    opacity: 0.75; /* Lighter transparency */
+}
+
+  
+/* Container to wrap the boxes */
+.box-container {
+    display: grid;
+    /* grid-template-columns: repeat(5, 1fr); */
+    /* grid-template-rows: repeat(5, 1fr); */
+    /* gap: 8px; */
+    justify-content: center; /* Center the entire grid */
+    align-items: center;
+    /* width: 1000px;  */
+    /* height: 1000px; */
+    margin: 0 auto; 
+    margin-top: 50px; 
+
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    width: 40%;
+    height: 40%;
+    margin-bottom: 50px;
+}
+
+/* Default box styling */
+.box {
+    background-color: rgba(31, 94, 188, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 80px;
+
+    
+}
+/* Custom sizes for specific boxes */
+.severe-weather {
+    /* Example: Span 2 columns for wider boxes */
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+.today-forecast {
+    /* grid-column: span 4; */
+    /* The box will stretch across 4 columns but maintain proportional size */
+    grid-area: 1 / 3 / 2 / 6;
+
+}
+
+.ten-day-forecast {
+    /* grid-row: span 3;
+    grid-row-start: 2; */
+    grid-area: 2 / 1 / 5 / 3;
+    height: 350px;
+
+}
+
+.wind {
+    /* grid-column: span 2;
+    grid-column-start: 2;
+    grid-row-start: 2; */
+    grid-area: 2 / 3 / 3 / 5;
+
+}
+
+.precipitation-map {
+    /* grid-column: span 2;
+    grid-row: span 3;
+    grid-column-start: 4;
+    grid-row-start: 2; */
+    grid-area: 2 / 5 / 5 / 6;
+    height: 350px;
+
+}
+
+.precipitation {
+    /* grid-column-start: 3;
+    grid-row-start: 5; */
+    grid-area: 5/3/6/4;
+
+}
+
+.visibility {
+    /* grid-column-start: 2;
+    grid-row-start: 3; */
+    grid-area: 3/3/4/4;
+
+}
+
+.uv-index {
+    /* grid-column-start: 3;
+    grid-row-start: 3; */
+    grid-area: 3/4/4/5;
+
+}
+
+.first-quarter {
+    /* grid-column-start: 1;
+    grid-row-start: 5; */
+    grid-area: 5/1/6/2;
+
+}
+
+.humidity {
+    /* grid-column-start: 2;
+    grid-row-start: 5; */
+    grid-area: 5/2/6/3;
+
+}
+
+.sunset {
+    /* grid-column-start: 2;
+    grid-row-start: 4; */
+    grid-area: 4/3/5/4;
+
+}
+
+.feels-like {
+    /* grid-column-start: 3;
+    grid-row-start: 4; */
+    grid-area: 4/4/5/5;
+
+}
+
+.pressure {
+    /* grid-column-start: 4;
+    grid-row-start: 5; */
+    grid-area: 5/4/6/5;
+}
+
+.averages {
+    /* grid-column-start: 5;
+    grid-row-start: 5; */
+    grid-area: 5/5/6/6;
+
+}
+
+
+
+
+/* Responsive design: adjust layout based on screen size */
+@media (max-width: 768px) {
+    .box-container {
+        grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .box-container {
+        grid-template-columns: 1fr; /* Stack all boxes in one column on mobile */
+    }
+
+    .box {
+        height: 100px;
+        width: 100px;
+        font-size: 16px;
+    }
+}
+
+
+#settings-button {
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    padding: 10px 20px; /* Padding inside the button */
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    color: white; /* White text */
+    font-size: 16px;
+    cursor: pointer; 
+    z-index: 1000; /* Ensures the button is on top of other elements */
+}
+
+#settings-button:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Slightly darker background on hover */
+    border-color: rgba(255, 255, 255, 0.6); /* Darker border on hover */
+}
+
+
+/* Open modal */
+.modal.show {
+    display: block;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* Modal content styling */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    border-radius: 10px; /* Smooth rounded corners */
+}
+
+.modal-content h2{  
+    display: block; 
+    font-weight: bold; 
+    color: #333; 
+    font-size: 20px; 
+    text-align: center; 
+    margin-top: 5px;     
+}
+
+/* Style form elements inside modal */
+.modal-content label {
+    display: block; /* Ensures labels take up full width and appear above the input */
+    margin-bottom: 5px; /* Adds some space between the label and the input */
+    font-weight: bold;
+    color: #333;
+    font-size: 14px; 
+    text-align: left; 
+    margin-top: 15px; /* Adds space between label and previous input */
+}
+
+
+
+.modal-content select, .modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box; /* Ensure padding doesn't overflow */
+}
+
+.modal-content button {
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 10px 20px; /* Padding inside the button */
+    border: none; 
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+}
+
+/* Specific spacing for the "Use My Location" and "Save Settings" buttons */
+#use-my-location {
+    margin-right: 10px; /* Space between the two buttons */
+}
+
+
+
+/* Suggestions list styling */
+.suggestions-list {
+    list-style: none; /* Without the dots */
+    padding: 0;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    /* overflow-y: auto; */
+    background-color: white;
+    width: 10%;
+    display: none; /* Hidden by default */
+    position: absolute;
+    z-index: 1;
+    color: #333;
+}
+
+.suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
+}
+
