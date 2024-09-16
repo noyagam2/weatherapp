@@ -1,0 +1,16 @@
+.search-bar {
+    text-align: right;
+    padding: 10px;
+}
+
+.search-bar input {
+    padding: 5px; /* Adds space inside the input */
+    border-radius: 20px; /* Gives the input rounded corners */
+    border: 1px solid #ccc; /* Adds a light border */
+    width: 200px; /* Sets a fixed width for the search bar */
+    font-size: 12px; /* Increases the text size for readability */
+}
+
+.search-bar input:focus {
+    outline: none; /* Removes the default blue outline */
+}
