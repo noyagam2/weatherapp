@@ -1,8 +1,8 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +35,42 @@
   to {
     transform: rotate(360deg);
   }
+} */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+body {
+  background-image: url("https://www.thecalifornian.com/gcdn/-mm-/e5c305e00d80354d1c0350948b3ccc39c5d4956e/c=0-202-3867-2377/local/-/media/Salinas/2015/03/19/B9316661963Z.1_20150319105958_000_GLQA8VSAM.1-0.jpg?width=660&height=372&fit=crop&format=pjpg&auto=webp");
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+  backdrop-filter: blur(5px); /* Blur the background */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  min-height: 100vh; /* Ensure body takes at least the height of the viewport */
+
+}
+
+/* Responsive design: adjust layout based on screen size */
+@media (max-width: 768px) {
+  .box-container {
+      grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .box-container {
+      grid-template-columns: 1fr; /* Stack all boxes in one column on mobile */
+  }
+
+  .box {
+      height: 100px;
+      width: 100px;
+      font-size: 16px;
+  }
+}
+

@@ -1,0 +1,40 @@
+/* Main container for weather info */
+.weather-info {
+    text-align: center;
+    margin-top: 30px; /* Slightly reduced margin */
+    color: black; 
+    font-family: 'Roboto', sans-serif; /* Use a cleaner font */
+}
+
+/* City name styling */
+.weather-info h2 {
+    font-size: 28px; /* Smaller for city name */
+    font-weight: 400; /* Lighter font for sleek look */
+    margin: 0;
+    opacity: 0.85; /* A bit of transparency */
+}
+
+/* Temperature styling */
+.weather-info .temperature {
+    font-size: 50px; /* Reduced size */
+    font-weight: 600; /* Bold, but not too heavy */
+    margin: 5px 0; /* Tighter space around temperature */
+    line-height: 1; /* Tightens space between temp and condition */
+    letter-spacing: -1px; /* Slight letter spacing for compactness */
+}
+
+/* Weather condition */
+.weather-info h3 {
+    font-size: 20px; /* Smaller for condition */
+    font-weight: 300; /* Light font weight for clean look */
+    margin: 5px 0; /* Reduced space */
+    opacity: 0.9; /* Subtle transparency */
+}
+
+/* High and low temperature */
+.weather-info p#high-low {
+    font-size: 16px; /* Smaller for high/low */
+    font-weight: 300; /* Light weight */
+    margin-top: 10px; /* More space below the condition */
+    opacity: 0.75; /* Lighter transparency */
+}
