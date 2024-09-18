@@ -1,0 +1,37 @@
+/* Main container styling */
+.main-container {
+    display: flex;
+    flex-direction: column;  /* Stack content vertically */
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Weather info at the top */
+  .weather-info {
+    text-align: center;
+    margin-bottom: 40px; /* Adds space below weather info */
+  }
+  
+  .weather-info h1 {
+    font-size: 36px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+ /* Reduce space between lines in weather-info paragraphs */
+ .weather-info p {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 0.5; /* Adjust this value to control the line height */
+}
+
+  /* Box container for info boxes (Wind, Humidity, etc.) */
+  .info-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+  

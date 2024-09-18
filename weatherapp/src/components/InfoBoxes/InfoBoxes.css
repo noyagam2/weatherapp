@@ -1,137 +1,21 @@
-/* Container to wrap the boxes */
-.box-container {
-    display: grid;
-    grid-template-rows: repeat(5, 1fr);
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    width: 40%;
-    height: 40%;
-    margin: 50px auto;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Default box styling */
-.box {
-    background-color: rgba(31, 94, 188, 0.2);
+.info-box {
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    backdrop-filter: blur(10px);
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    height: 80px;
-}
-
-/* Custom sizes for specific boxes */
-.today-forecast {
-    grid-area: 1 / 1 / 2 / 6;
-}
-
-.ten-day-forecast {
-    grid-area: 2 / 1 / 5 / 3;
-    height: 350px;
-}
-
-.wind {
-    grid-area: 2 / 3 / 3 / 5;
-}
-
-.precipitation-map {
-    grid-area: 2 / 5 / 5 / 6;
-    height: 350px;
-}
-
-.precipitation {
-    grid-area: 5 / 3 / 6 / 4;
-}
-
-.visibility {
-    grid-area: 3 / 3 / 4 / 4;
-}
-
-.uv-index {
-    grid-area: 3 / 4 / 4 / 5;
-}
-
-.humidity {
-    grid-area: 5 / 1 / 6 / 3;
-    width: 150px;
-}
-
-.sunset {
-    grid-area: 4 / 3 / 5 / 4;
-}
-
-.feels-like {
-    grid-area: 4 / 4 / 5 / 5;
-}
-
-.pressure {
-    grid-area: 5 / 4 / 6 / 5;
-}
-
-.averages {
-    grid-area: 5 / 5 / 6 / 6;
-}
-
-/* Adjusted layout for specific boxes */
-.ten-day-forecast {
-    grid-area: 2 / 1 / 5 / 3; /* Adjust this to fit your grid layout */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+  }
+  
+  .info-box h3 {
     margin: 0;
-    height: 100%; /* Ensure it fills the height of its grid area */
-}
-
-
-
-/* List styling */
-.forecast-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;  /* Ensure the list takes the full width */
-    height: 300px;
-}
-
-/* Individual forecast day styling */
-.forecast-day {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: rgba(31, 94, 188, 0.3); /* Add background to each forecast */
-    margin-bottom: 8px;
-}
-
-/* Date styling */
-.forecast-date {
-    font-size: 14px; /* Adjust font size */
-    font-weight: 500;
+    font-size: 18px;
     color: rgba(255, 255, 255, 0.9);
-    flex-basis: 25%; /* Takes 25% of the width */
-}
-
-/* Weather icon styling */
-.forecast-icon {
-    width: 25px;
-    height: 25px;
-    flex-basis: 15%; /* Icon takes 15% of the width */
-}
-
-/* Temperature styling */
-.forecast-temp {
-    font-size: 14px;
+  }
+  
+  .info-box p {
+    margin: 10px 0 0;
+    font-size: 24px;
     font-weight: bold;
-    flex-basis: 40%;
-    text-align: right;
-}
+  }
+  

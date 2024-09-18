@@ -7,7 +7,7 @@ interface WeatherInfoProps {
 
 const WeatherInfo = ({ weatherData }: WeatherInfoProps) => {
     if (!weatherData) {
-      return <div>Loading...</div>;
+      return <div>Loading!...</div>;
     }
   
     return (

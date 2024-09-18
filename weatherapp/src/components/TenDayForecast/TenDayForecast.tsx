@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import "./TenDayForecast.css"; 
-const API_KEY = '286127cbb1534e36bb2110806240409';
+import './TenDayForecast.css';
 
-
-interface TenDayForecastProps {
+interface ForecastBoxProps {
   city: string;
   apiKey: string;
 }
 
-const TenDayForecast = ({ city, apiKey }: TenDayForecastProps) => {
-  const [forecast, setForecast] = useState<any[]>([]); // Array to store the 10-day forecast
+const ForecastBox = ({ city, apiKey }: ForecastBoxProps) => {
+  const [forecast, setForecast] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchForecast = async () => {
-      const response = await fetch(
-        `/v1/forecast.json?key=${API_KEY }&q=${city}&days=10`
-      );
-      const data = await response.json();
-      setForecast(data.forecast.forecastday); // Save the 10-day forecast data
+      try {
+        const response = await fetch(`/v1/forecast.json?key=${apiKey}&q=${city}&days=10`);
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log("Forecast Data:", data); // Check if 10 days of data are returned
+
+        console.log("Forecast Data:", data); // Log the data for debugging
+
+        if (data.forecast && data.forecast.forecastday.length > 0) {
+          setForecast(data.forecast.forecastday);
+        } else {
+          setError("No forecast data available.");
+        }
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error("Failed to fetch forecast:", err.message);
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred.");
+        }
+      }
     };
 
     fetchForecast();
-  }, [city, API_KEY ]);
+  }, [city, apiKey]);
 
-  // Helper function to format the date as "Today", "Tomorrow", or day names like "Thursday"
-  const formatDayName = (dateString: string, index: number) => {
+   // Helper function to format the date as "Today", "Tomorrow", or day names like "Thursday"
+   const formatDayName = (dateString: string, index: number) => {
     const today = new Date();
     const targetDate = new Date(dateString);
 
@@ -37,9 +56,8 @@ const TenDayForecast = ({ city, apiKey }: TenDayForecastProps) => {
     return targetDate.toLocaleDateString("en-US", { weekday: 'long' });
   };
 
-
-
-  if (!forecast.length) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!forecast.length) return <p>Loading!!...</p>;
 
   return (
     <div className="ten-day-forecast-box">
@@ -63,4 +81,4 @@ const TenDayForecast = ({ city, apiKey }: TenDayForecastProps) => {
   );
 };
 
-export default TenDayForecast;
+export default ForecastBox;

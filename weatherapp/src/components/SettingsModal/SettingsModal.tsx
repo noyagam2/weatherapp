@@ -60,7 +60,7 @@ const SettingsModal = ({ setTempUnit, setWindUnit, fetchWeatherByCity, fetchWeat
   // Fetch city suggestions from the API
   const fetchCitySuggestions = async (query: string) => {
     try {
-      const response = await fetch(`http://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${query}`);
+      const response = await fetch(`/v1/search.json?key=${API_KEY}&q=${query}`);
       const cities = await response.json();
       setCitySuggestions(cities);
       setShowSuggestions(true); // Show suggestions when we get data

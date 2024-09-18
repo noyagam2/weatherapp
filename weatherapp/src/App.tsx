@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
-import WeatherInfo from './components/WeatherInfo/WeatherInfo';
+// import WeatherInfo from './components/WeatherInfo/WeatherInfo';
 import InfoBoxes from './components/InfoBoxes/InfoBoxes';
 import SettingsModal from './components/SettingsModal/SettingsModal';
 import { WeatherData } from './types';
+import MainContainer from './components/MainContainer/MainContainer';
+import HourlyForecast from './components/HourlyForecast/HourlyForecast';  // Import the new component
+
 
 const API_KEY = '286127cbb1534e36bb2110806240409';
 
 function App() {
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [cityInput, setCityInput] = useState('');
   const [tempUnit, setTempUnit] = useState('celsius');
   const [windUnit, setWindUnit] = useState('kmh');
@@ -48,16 +51,16 @@ function App() {
 
   // Fetch weather by city
   const fetchWeatherByCity = (city: string) => {
-    fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
-      .then((response) => response.json())
+    fetch(`/v1/current.json?key=${API_KEY}&q=${city}`)
+    .then((response) => response.json())
       .then((data) => setWeatherData(data))
       .catch((error) => console.error('Error fetching weather data:', error));
   };
 
   // Fetch weather by coordinates
   const fetchWeatherByCoordinates = (lat: number, lon: number) => {
-    fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${lat},${lon}`)
-      .then((response) => response.json())
+    fetch(`/v1/current.json?key=${API_KEY}&q=${lat},${lon}`)
+    .then((response) => response.json())
       .then((data) => setWeatherData(data))
       .catch((error) => console.error('Error fetching weather data by coordinates:', error));
   };
@@ -119,8 +122,25 @@ function App() {
         cityInput={cityInput}
         setCityInput={setCityInput}
       />
-      <WeatherInfo weatherData={weatherData} />
-      <InfoBoxes weatherData={weatherData} tempUnit={tempUnit} windUnit={windUnit} />
+       <div className="App">
+        {weatherData ? (
+          <>
+           <MainContainer
+            weatherData={weatherData}
+            tempUnit={tempUnit}
+            windUnit={windUnit}
+            apiKey={API_KEY}  // Pass API_KEY as a prop
+          />
+
+            <HourlyForecast city={weatherData.location.name} apiKey={API_KEY} />
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+
+      {/* <WeatherInfo weatherData={weatherData} /> */}
+      {/* <InfoBoxes weatherData={weatherData} tempUnit={tempUnit} windUnit={windUnit} /> */}
       <SettingsModal
         setTempUnit={setTempUnit}
         setWindUnit={setWindUnit}
