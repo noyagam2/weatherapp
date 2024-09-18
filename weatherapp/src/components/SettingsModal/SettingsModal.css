@@ -1,97 +1,150 @@
+/* Settings button styling */
+.settings-button {
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    padding: 10px 20px; 
+    background-color: rgba(255, 255, 255, 0.2); 
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    color: white; 
+    font-size: 16px;
+    cursor: pointer; 
+    z-index: 1000; 
+}
 
-/* Open modal */
+.settings-button:hover {
+    background-color: rgba(255, 255, 255, 0.4); 
+    border-color: rgba(255, 255, 255, 0.6); 
+}
+
+/* Modal Styling */
 .modal.show {
     display: block;
 }
 
-/* Modal styling */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker backdrop for better contrast */
 }
-
 
 /* Modal content styling */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
+    background-color: #fff;
+    margin: 10% auto;
     padding: 20px;
-    width: 300px;
+    width: 350px; /* Slightly wider modal */
     text-align: center;
-    border-radius: 10px; /* Smooth rounded corners */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.modal-content h2{  
-    display: block; 
+/* Header */
+.modal-content h2 {  
     font-weight: bold; 
     color: #333; 
-    font-size: 20px; 
-    text-align: center; 
-    margin-top: 5px;     
+    font-size: 22px; /* Slightly larger font */
+    margin-top: 0; 
 }
 
-/* Style form elements inside modal */
+/* Form labels */
 .modal-content label {
-    display: block; /* Ensures labels take up full width and appear above the input */
-    margin-bottom: 5px; /* Adds some space between the label and the input */
+    display: block;
+    margin-bottom: 5px;
     font-weight: bold;
     color: #333;
     font-size: 14px; 
-    text-align: left; 
-    margin-top: 15px; /* Adds space between label and previous input */
+    text-align: left;
+    margin-top: 15px; 
 }
 
-
-
+/* Inputs and selects */
 .modal-content select, .modal-content input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
-    box-sizing: border-box; /* Ensure padding doesn't overflow */
+    box-sizing: border-box;
+    transition: border 0.3s ease;
 }
 
+.modal-content select:focus, .modal-content input:focus {
+    border-color: #4CAF50; /* Green border on focus */
+}
+
+/* Toggle switch */
+#use-location-toggle {
+    margin-right: 10px;
+    accent-color: #4CAF50; /* Green color for the checkbox */
+}
+
+/* Buttons inside modal */
 .modal-content button {
-    background-color: #4CAF50; 
-    color: white; 
-    padding: 10px 20px; /* Padding inside the button */
-    border: none; 
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Change cursor to pointer */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 14px;
     margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
     background-color: #45a049;
 }
 
-/* Specific spacing for the "Use My Location" and "Save Settings" buttons */
-#use-my-location {
-    margin-right: 10px; /* Space between the two buttons */
+/* Close button */
+.modal-content button:last-child {
+    background-color: #f44336; /* Red for cancel/close button */
 }
 
-/* Suggestions list styling */
+.modal-content button:last-child:hover {
+    background-color: #e53935;
+}
+
+
+/* Toggle label styling */
+.modal-content .toggle-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 15px; 
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+/* Customize the toggle (checkbox) */
+#use-location-toggle {
+    margin-left: 5px; /* Space between the label and the toggle */
+    transform: scale(1.2); 
+    accent-color: #4CAF50;
+}
+
+
+
+/* Suggestions list */
 .suggestions-list {
-    list-style: none; /* Without the dots */
+    list-style-type: none;
     padding: 0;
-    margin: 5px 0;
+    margin: 0;
     border: 1px solid #ccc;
-    max-height: 150px;
-    /* overflow-y: auto; */
     background-color: white;
-    width: 10%;
-    display: none; /* Hidden by default */
     position: absolute;
-    z-index: 1;
+    z-index: 1000;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: #333;
 }
 
@@ -99,6 +152,7 @@
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s ease;
 }
 
 .suggestions-list li:hover {

@@ -42,7 +42,7 @@ html, body {
   padding: 0;
 }
 
-body {
+.root {
   background-image: url("https://www.thecalifornian.com/gcdn/-mm-/e5c305e00d80354d1c0350948b3ccc39c5d4956e/c=0-202-3867-2377/local/-/media/Salinas/2015/03/19/B9316661963Z.1_20150319105958_000_GLQA8VSAM.1-0.jpg?width=660&height=372&fit=crop&format=pjpg&auto=webp");
   background-size: cover;
   background-position: center; 
@@ -52,6 +52,7 @@ body {
   font-family: Arial, sans-serif;
   color: white;
   min-height: 100vh; /* Ensure body takes at least the height of the viewport */
+  height: 100%;
 
 }
 
@@ -73,4 +74,3 @@ body {
       font-size: 16px;
   }
 }
-
