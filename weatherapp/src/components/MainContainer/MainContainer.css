@@ -1,37 +1,126 @@
-/* Main container styling */
 .main-container {
-    display: flex;
-    flex-direction: column;  /* Stack content vertically */
-    align-items: center;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Weather info at the top */
-  .weather-info {
-    text-align: center;
-    margin-bottom: 40px; /* Adds space below weather info */
-  }
-  
-  .weather-info h1 {
-    font-size: 36px;
-    margin: 0;
-    color: rgba(255, 255, 255, 0.9);
-  }
-  
- /* Reduce space between lines in weather-info paragraphs */
- .weather-info p {
+  display: grid;
+  grid-template-columns: repeat(20, 20fr); /* Three columns */
+  grid-template-rows: auto auto auto; /* Three rows for flexible content */
+  grid-gap: 40px;
+  padding: 10px;
+  max-width: 1200px;
+  max-height: 1700px;
+  margin: auto auto;
+}
+
+/* Weather info spans across the top (full width) */
+.weather-info {
+  grid-column: 1 / -1; /* Span across all three columns */
+  text-align: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 20px;
+}
+
+.weather-info p {
   font-size: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 0.5; 
+}
+
+.weather-info h3 {
+  font-size: 50px;
   color: rgba(255, 255, 255, 0.8);
   line-height: 0.5; /* Adjust this value to control the line height */
 }
 
-  /* Box container for info boxes (Wind, Humidity, etc.) */
-  .info-boxes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    width: 100%;
+/* 24-Hour Forecast (Left side, span 2 columns) */
+.hourly-forecast-box {
+  grid-column: 1 / 15; /* Span two columns */
+  grid-row: 2;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  max-height: 200px;
+  padding: 20px;
+}
+
+/* Map on the right */
+.map-box {
+  grid-column: 15 / -1; /* Right side */
+  grid-row: 3 / -1; /* Span vertically across two rows */
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  border-radius: 8px;
+  padding: 20px;
+  width: 150%;
+  height: 100px;
+  margin-top: -20px; /* Moves the map 20px upwards */
+  margin-left: 0px;
+
+}
+
+/* 10-Day Forecast (Left side below 24-Hour Forecast) */
+.ten-day-forecast-box {
+  grid-column: 1 / 7; /* Left side */
+  grid-row: 3 / 4;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 35px;
+  max-width: 600px;
+  max-height: 470px;
+}
+
+/* Right-side rectangles */
+.right-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  /* grid-template-rows: repeat(5, 1fr); */
+  grid-column: 7 / 10; /* Right side next to the 10-Day Forecast */
+  grid-row: 3; /* Align with the 10-Day Forecast */
+  grid-gap: 60px;
+}
+
+.uv-index-box, .sunrise-sunset-box, .humidity-box, .visibility-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  height: 180px; /* Adjusted for larger boxes */
+  width: 170px;
+}
+
+.uv-index-box, .humidity-box{
+  width: 170px;
+}
+
+/* Wind and Feels Like below the map */
+.bottom-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+
+  grid-column: 15 / -1; /* Right side */
+  grid-row: 2; /* Below the map */
+  grid-gap: 60px;
+}
+
+.wind-box, .feels-like-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  padding:20px;
+  padding-bottom: 100px;
+  height: 80px; /* Adjusted for larger boxes */
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-container {
+    grid-template-columns: 1fr; /* Stack everything in one column */
   }
-  
+
+  .right-container, .bottom-container {
+    grid-template-columns: 1fr; /* Stack boxes in a single column */
+  }
+
+  .map-box, .hourly-forecast-box, .ten-day-forecast-box {
+    grid-column: 1; /* Full width for smaller screens */
+  }
+}

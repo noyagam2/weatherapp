@@ -1,4 +1,4 @@
-.hourly-forecast-container {
+/* .hourly-forecast-container {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 20px;
@@ -6,13 +6,13 @@
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    overflow-x: auto;  /* Enable horizontal scrolling */
-    white-space: nowrap;  /* Prevent line breaks for inline items */
+    overflow-x: auto;  
+    white-space: nowrap;  
   }
-  
+   */
   .hourly-forecast {
     display: flex;
-    flex-wrap: nowrap;  /* Prevent wrapping, make it horizontal */
+    flex-wrap: nowrap; 
     overflow-x: auto;
   }
   

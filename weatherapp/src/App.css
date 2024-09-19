@@ -36,25 +36,26 @@
     transform: rotate(360deg);
   }
 } */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
 
+
+
+
+/* 
 .root {
   background-image: url("https://www.thecalifornian.com/gcdn/-mm-/e5c305e00d80354d1c0350948b3ccc39c5d4956e/c=0-202-3867-2377/local/-/media/Salinas/2015/03/19/B9316661963Z.1_20150319105958_000_GLQA8VSAM.1-0.jpg?width=660&height=372&fit=crop&format=pjpg&auto=webp");
   background-size: cover;
   background-position: center; 
   background-repeat: no-repeat;
-  backdrop-filter: blur(5px); /* Blur the background */
+  backdrop-filter: blur(5px); 
   margin: 0;
   font-family: Arial, sans-serif;
   color: white;
-  min-height: 100vh; /* Ensure body takes at least the height of the viewport */
+  min-height: 100vh; 
   height: 100%;
 
-}
+} */
+
+
 
 /* Responsive design: adjust layout based on screen size */
 @media (max-width: 768px) {
@@ -68,9 +69,40 @@ html, body {
       grid-template-columns: 1fr; /* Stack all boxes in one column on mobile */
   }
 
-  .box {
+  /* .box {
       height: 100px;
       width: 100px;
       font-size: 16px;
-  }
+  } */
+}
+
+
+/* Ensure that html, body, #root, and App take the full height */
+html, body, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure the background image covers the entire screen */
+body {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Root element inside body */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it takes full height of the page */
+}
+
+/* App container should stretch to full height */
+.App {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allow it to grow and take remaining space */
+  justify-content: space-between;
 }

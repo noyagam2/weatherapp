@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
 // import WeatherInfo from './components/WeatherInfo/WeatherInfo';
-import InfoBoxes from './components/InfoBoxes/InfoBoxes';
+// import InfoBoxes from './components/InfoBoxes/InfoBoxes';
 import SettingsModal from './components/SettingsModal/SettingsModal';
 import { WeatherData } from './types';
 import MainContainer from './components/MainContainer/MainContainer';
-import HourlyForecast from './components/HourlyForecast/HourlyForecast';  // Import the new component
+// import HourlyForecast from './components/HourlyForecast/HourlyForecast'; 
+
 
 
 const API_KEY = '286127cbb1534e36bb2110806240409';
@@ -49,21 +50,27 @@ function App() {
     }
   }, []);
 
-  // Fetch weather by city
   const fetchWeatherByCity = (city: string) => {
-    fetch(`/v1/current.json?key=${API_KEY}&q=${city}`)
-    .then((response) => response.json())
-      .then((data) => setWeatherData(data))
+    fetch(`/v1/forecast.json?key=${API_KEY}&q=${city}&days=10`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Log the data to inspect the response
+        setWeatherData(data);
+      })
       .catch((error) => console.error('Error fetching weather data:', error));
   };
+  
 
-  // Fetch weather by coordinates
   const fetchWeatherByCoordinates = (lat: number, lon: number) => {
-    fetch(`/v1/current.json?key=${API_KEY}&q=${lat},${lon}`)
-    .then((response) => response.json())
-      .then((data) => setWeatherData(data))
+    fetch(`/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=10`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Log the data to inspect the response
+        setWeatherData(data);
+      })
       .catch((error) => console.error('Error fetching weather data by coordinates:', error));
   };
+  
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,6 +121,18 @@ function App() {
     body.style.backgroundPosition = 'center';
   };
 
+  useEffect(() => {
+    document.documentElement.style.height = '100%';  // Set html height to 100%
+    document.body.style.height = '100%';  // Ensure body height is 100%
+    document.body.style.margin = '0';     // Remove margin if necessary
+  }, []);
+
+  useEffect(() => {
+    // Ensure the body covers the full viewport height
+    document.body.style.height = '100%';
+    document.body.style.minHeight = '100vh';  // At least 100% of viewport height
+  }, []);
+
   return (
     <>
       <SearchBar
@@ -132,7 +151,7 @@ function App() {
             apiKey={API_KEY}  // Pass API_KEY as a prop
           />
 
-            <HourlyForecast city={weatherData.location.name} apiKey={API_KEY} />
+            {/* <HourlyForecast city={weatherData.location.name} apiKey={API_KEY} /> */}
           </>
         ) : (
           <p>Loading...</p>
