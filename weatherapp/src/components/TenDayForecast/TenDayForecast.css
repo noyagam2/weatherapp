@@ -28,7 +28,7 @@
 }
 
 .ten-day-forecast-box li span {
-  font-size: 16px;
+  font-size: 20px;
   flex: 1; /* Allow the text to take up the remaining space */
 }
 

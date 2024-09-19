@@ -50,6 +50,23 @@ export interface WeatherData {
         sunrise: string;
         sunset: string;
       };
+      day: {
+        maxtemp_c: number;
+        maxtemp_f: number;
+        mintemp_c: number;
+        mintemp_f: number;
+        avgtemp_c: number;
+        avgtemp_f: number;
+        maxwind_kph: number;
+        totalprecip_mm: number;
+        totalprecip_in: number;
+        daily_chance_of_rain: number;
+        daily_chance_of_snow: number;
+        condition: {
+          text: string;
+          icon: string;
+        };
+      };
       hour: Array<{
         time: string;
         temp_c: number;

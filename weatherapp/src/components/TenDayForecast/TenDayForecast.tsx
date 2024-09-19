@@ -20,9 +20,6 @@ const ForecastBox = ({ city, apiKey }: ForecastBoxProps) => {
         }
 
         const data = await response.json();
-        console.log("Forecast Data:", data); // Check if 10 days of data are returned
-
-        console.log("Forecast Data:", data); // Log the data for debugging
 
         if (data.forecast && data.forecast.forecastday.length > 0) {
           setForecast(data.forecast.forecastday);
@@ -61,7 +58,7 @@ const ForecastBox = ({ city, apiKey }: ForecastBoxProps) => {
 
   return (
     <div className="ten-day-forecast-box">
-      <h3>10-DAY FORECAST</h3>
+      <h3>7-DAY FORECAST</h3>
       <ul className="forecast-list">
         {forecast.map((day: any, index: number) => (
           <li key={day.date} className="forecast-day">

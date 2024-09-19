@@ -124,3 +124,294 @@
     grid-column: 1; /* Full width for smaller screens */
   }
 }
+
+
+.uv-index-box {
+  /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)); */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+
+  border-radius: 12px; /* Smooth rounded edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+  width: 100%;
+  height: 200px; /* Adjust height to fit description */
+}
+
+.uv-index-box p {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.uv-index-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.uv-index-description {
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 12px;
+}
+
+.uv-index-bar {
+  position: relative; /* For dot placement */
+  height: 8px;
+  background: linear-gradient(90deg, green, yellow, orange, red);
+  border-radius: 4px;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 10px; /* Space for the dot */
+}
+
+.uv-index-dot {
+  position: absolute;
+  top: -0.5px; /* Adjust dot position vertically */
+  left: calc(50% - 6px); /* Adjust dot position horizontally, change percentage as needed */
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.feels-like-box {
+  border-radius: 12px; /* Rounded corners */
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Roboto', sans-serif; /* Clean, modern font */
+  width: 100%; /* Full width of the container */
+  height: 180px; /* Adjust the height */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+}
+
+.feels-like-box .feels-like-label {
+  display: flex;
+  align-items: center; /* Vertically center icon and text */
+  justify-content: center; /* Center horizontally */
+  gap: 8px; /* Add some space between the icon and text */
+}
+
+.feels-like-box .icon {
+  font-size: 1.5rem;
+}
+
+.feels-like-box .label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.feels-like-box .temperature {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.feels-like-box .description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Main container for the curve */
+.sunset-sunrise-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px; /* Smooth rounded edges */
+
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center the elements horizontally */
+  justify-content: center; /* Center the content vertically */
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sunset-sunrise-box .label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.sunset-sunrise-box .icon {
+  font-size: 1.5rem;
+  margin-right: 8px;
+}
+
+.sunset-sunrise-box .time {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 12px; /* Add space between time and curve */
+}
+
+/* Main container for the curve */
+.sunset-sunrise-box .curve {
+  width: 80%;
+  height: 100px; /* Increase height to create a more noticeable arc */
+  position: relative;
+  margin-top: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px; /* Add margin below the curve */
+}
+
+/* Sun path curve */
+.sunset-sunrise-box .curve .sun-path {
+  position: absolute;
+  top: 20px; /* Shift up to create the arc */
+  width: 100%;
+  height: 100px; /* Matches the height of the curve */
+  border-top: 2px solid rgba(255, 255, 255, 0.8); /* Light gradient effect */
+  border-radius: 50%; /* Makes it an arc */
+  background: transparent;
+}
+
+
+/* The dot representing the sun */
+.sunset-sunrise-box .curve .dot {
+  position: absolute;
+  top: 15px; /* Position above the line */
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 0.5) 70%); /* Sun-like glow */
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Slight glow effect */
+}
+
+.humidity-box {
+  background: rgba(255, 255, 255, 0.1); /* Transparent background */
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  width: 100%; /* Full width */
+  height: 200px; /* Adjust the height to fit the content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.humidity-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.humidity-box .icon {
+  font-size: 1.5rem;
+  margin-right: 8px;
+}
+
+.humidity-percentage {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.humidity-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.visibility-box {
+  background: rgba(255, 255, 255, 0.1); /* Transparent background */
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  width: 100%; /* Full width */
+  height: 200px; /* Adjust the height to fit the content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.visibility-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.visibility-box .icon {
+  font-size: 1.5rem;
+  margin-right: 8px;
+}
+
+.visibility-distance {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.visibility-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+.precipitation-box {
+  background: rgba(255, 255, 255, 0.1); /* Transparent background */
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  width: 100%; /* Full width */
+  height: 200px; /* Adjust the height to fit the content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.precipitation-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.precipitation-box .icon {
+  font-size: 1.5rem;
+  margin-right: 8px;
+}
+
+.precipitation-amount {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.precipitation-timeframe {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+}
+
+.precipitation-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
