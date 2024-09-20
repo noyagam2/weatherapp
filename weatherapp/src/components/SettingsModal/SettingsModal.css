@@ -14,7 +14,7 @@
 }
 
 .settings-button:hover {
-    background-color: rgba(255, 255, 255, 0.4); 
+    background-color: #0056b3; /* Darken the background color on hover */
     border-color: rgba(255, 255, 255, 0.6); 
 }
 

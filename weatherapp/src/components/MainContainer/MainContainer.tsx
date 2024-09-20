@@ -2,55 +2,62 @@ import React from 'react';
 import TenDayForecast from '../TenDayForecast/TenDayForecast';
 import HourlyForecast from '../HourlyForecast/HourlyForecast';
 import './MainContainer.css';
+
 import { WeatherData } from '../../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThermometerHalf, faSun } from '@fortawesome/free-solid-svg-icons';
-import { faTint } from '@fortawesome/free-solid-svg-icons';  // Import the humidity icon
-import { faEye } from '@fortawesome/free-solid-svg-icons';  // Import the humidity icon
-import { faCloudRain } from '@fortawesome/free-solid-svg-icons';  // Import the precipitation icon
-
-
-
-
-const MAPS_API_KEY = 'AIzaSyAmk4UVxsb8M3uYUdETUNPX7r9Yqk0ei3c';
+import { faThermometerHalf, faSun, faTint, faEye, faCloudRain } from '@fortawesome/free-solid-svg-icons';
 
 interface MainContainerProps {
   weatherData: WeatherData;
   tempUnit: string;
-  windUnit: string;
+//   windUnit: string;
   apiKey: string;
 }
 
-const MainContainer = ({ weatherData, tempUnit, windUnit, apiKey }: MainContainerProps) => {
+const MAPS_API_KEY = 'AIzaSyAmk4UVxsb8M3uYUdETUNPX7r9Yqk0ei3c';
+
+
+const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) => {
   if (!weatherData) return <p>Loading...</p>;
 
   const forecastAvailable = weatherData.forecast && weatherData.forecast.forecastday.length > 0;
   if (!forecastAvailable) {
     return <p>Forecast data is unavailable.</p>;
   }
-// Get the local time of the searched city from the weatherData object
-const localTime = weatherData.location.localtime;
 
-// Parse the local time to create a Date object
-const now = new Date(localTime);
+    // Function to convert Celsius to Fahrenheit
+    const convertTemp = (tempCelsius: number) => {
+        return tempUnit === 'fahrenheit' ? (tempCelsius * 9) / 5 + 32 : tempCelsius;
+      };
+    
+      // Display temperature with the correct unit
+      const currentTemp = convertTemp(weatherData.current.temp_c);
+      const tempUnitSymbol = tempUnit === 'fahrenheit' ? '°F' : '°C';
+
+  // Map URL
+  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${MAPS_API_KEY}&center=${weatherData.location.lat},${weatherData.location.lon}&zoom=12`;
 
 
+  // Get the local time of the searched city from the weatherData object
+  const localTime = weatherData.location.localtime;
 
-// Extract sunrise and sunset times as before
-const [sunriseHourStr, sunriseMinutesStr, sunrisePeriod] = weatherData.forecast.forecastday[0].astro.sunrise.split(/[: ]/);
-const [sunsetHourStr, sunsetMinutesStr, sunsetPeriod] = weatherData.forecast.forecastday[0].astro.sunset.split(/[: ]/);
+  // Parse the local time to create a Date object
+  const now = new Date(localTime);
 
-const sunriseHour = sunrisePeriod === "PM" && parseInt(sunriseHourStr, 10) !== 12
-  ? parseInt(sunriseHourStr, 10) + 12
-  : parseInt(sunriseHourStr, 10);
-const sunsetHour = sunsetPeriod === "PM" && parseInt(sunsetHourStr, 10) !== 12
-  ? parseInt(sunsetHourStr, 10) + 12
-  : parseInt(sunsetHourStr, 10);
+  // Extract sunrise and sunset times
+  const [sunriseHourStr, sunriseMinutesStr, sunrisePeriod] = weatherData.forecast.forecastday[0].astro.sunrise.split(/[: ]/);
+  const [sunsetHourStr, sunsetMinutesStr, sunsetPeriod] = weatherData.forecast.forecastday[0].astro.sunset.split(/[: ]/);
 
-// Convert sunrise and sunset to Date objects based on the city's local time
-const sunriseTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), sunriseHour, parseInt(sunriseMinutesStr, 10));
-const sunsetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), sunsetHour, parseInt(sunsetMinutesStr, 10));
+  const sunriseHour = sunrisePeriod === "PM" && parseInt(sunriseHourStr, 10) !== 12
+    ? parseInt(sunriseHourStr, 10) + 12
+    : parseInt(sunriseHourStr, 10);
+  const sunsetHour = sunsetPeriod === "PM" && parseInt(sunsetHourStr, 10) !== 12
+    ? parseInt(sunsetHourStr, 10) + 12
+    : parseInt(sunsetHourStr, 10);
 
+  // Convert sunrise and sunset to Date objects based on the city's local time
+  const sunriseTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), sunriseHour, parseInt(sunriseMinutesStr, 10));
+  const sunsetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), sunsetHour, parseInt(sunsetMinutesStr, 10));
 
   // Handle the next day's sunrise if it's after sunset
   let nextSunriseTime = new Date(sunriseTime);
@@ -60,170 +67,167 @@ const sunsetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), su
 
   // Calculate sun position percentage for the dynamic sun path (0% at sunrise, 100% at sunset)
   const totalDaylight = sunsetTime.getTime() - sunriseTime.getTime(); // Total time between sunrise and sunset
-const timeSinceSunrise = now.getTime() - sunriseTime.getTime(); // Time since sunrise
-const sunPositionPercentage = Math.min(Math.max((timeSinceSunrise / totalDaylight) * 100, 0), 100);
+  const timeSinceSunrise = now.getTime() - sunriseTime.getTime(); // Time since sunrise
+  const sunPositionPercentage = Math.min(Math.max((timeSinceSunrise / totalDaylight) * 100, 0), 100);
 
 
   // UV Index calculation
   const uvIndex = weatherData.current.uv;
   const uvPercentage = (uvIndex / 11) * 100;
 
-  // Map URL
-  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${MAPS_API_KEY}&center=${weatherData.location.lat},${weatherData.location.lon}&zoom=12`;
-
   // Determine whether to display sunrise or sunset
   const isBeforeSunrise = now < sunriseTime;
   const isAfterSunset = now > sunsetTime;
 
-console.log(weatherData.forecast.forecastday[0]);
-
+  const getUVDescription = (uvIndex: number, sunsetTime: Date) => {
+    let description = '';
+  
+    // UV description based on index
+    if (uvIndex <= 2) {
+      description = 'Low';
+    } else if (uvIndex <= 5) {
+      description = 'Moderate';
+    } else if (uvIndex <= 7) {
+      description = 'High';
+    } else if (uvIndex <= 10) {
+      description = 'Very High';
+    } else {
+      description = 'Extreme';
+    }
+  
+    // Get sunset time in hours and minutes (in 24-hour format)
+    const sunsetHour = sunsetTime.getHours();
+    const sunsetMinutes = sunsetTime.getMinutes().toString().padStart(2, '0'); // Add leading zero if necessary
+  
+    // Return description with dynamic sun protection time
+    return `${description}`;
+  };
+  
 
   return (
     <div className="main-container">
       {/* Main weather info */}
       <div className="weather-info">
         <h1>{weatherData.location.name}</h1>
-        <h3>{weatherData.current.temp_c}°</h3>
+        <h3>{currentTemp.toFixed(1)}{tempUnitSymbol}</h3> {/* Display current temperature with unit */}
         <p>{weatherData.current.condition.text}</p>
-        <p id="high-low">H: {weatherData.current.temp_c + 2}° L: {weatherData.current.temp_c - 2}°</p>
+        <p id="high-low">
+          H: {convertTemp(weatherData.current.temp_c + 2).toFixed(1)}{tempUnitSymbol} 
+          L: {convertTemp(weatherData.current.temp_c - 2).toFixed(1)}{tempUnitSymbol}
+        </p>
       </div>
 
       {/* 24-Hour Forecast */}
       <div className="hourly-forecast-box">
-        <HourlyForecast city={weatherData.location.name} apiKey={apiKey} />
-      </div>
+        <HourlyForecast weatherData={weatherData} tempUnit={tempUnit} />  {/* Pass tempUnit here */}
+    </div>
+
+
 
       {/* Map */}
       <div className="map-box">
         <iframe
           title="Weather Map"
-          width="70%"
-          height="500"
+          width="100%"
+          height="170"
           frameBorder="0"
           style={{ border: 0 }}
-          src={mapUrl}
+          src={`https://www.google.com/maps/embed/v1/view?key=${MAPS_API_KEY}&center=${weatherData.location.lat},${weatherData.location.lon}&zoom=12`}
           allowFullScreen
         ></iframe>
       </div>
 
-      {/* 10-Day Forecast */}
-      <TenDayForecast city={weatherData.location.name} apiKey={apiKey} />
+    {/* UV Index Box */}
+    <div className="box uv-index-box">
+    <div className="uv-index-header">
+    <FontAwesomeIcon icon={faSun} className="uv-icon" /> {/* Icon */}
+    <p>UV Index</p> {/* Header text */}
+  </div>
+    <div className="uv-index-value">{weatherData.current.uv}</div>
+    <div className="uv-index-description">
+    <p>{getUVDescription(uvIndex, sunsetTime)}</p>
+    <p>Use sun protection until {sunsetTime.getHours()}:{sunsetTime.getMinutes().toString().padStart(2, '0')}</p>
+  </div>
+    </div>
 
-      {/* Right-side boxes: UV Index, Sunrise/Sunset, Humidity, Visibility */}
-      <div className="right-container">
-        {/* UV Index */}
-        <div className="uv-index-box">
-          <p>UV Index</p>
-          <div className="uv-index-value">{weatherData.current.uv}</div>
-          <div className="uv-index-description">
-            Moderate <br /> Use sun protection until 17:00
+      {/* Sunrise/Sunset Box */}
+      <div className="box sunset-sunrise-box">
+        <div className="label">
+          <FontAwesomeIcon icon={faSun} className="icon" /> {/* Icon */}
+          <div className="label-text">
+            {isBeforeSunrise ? "SUNRISE" : isAfterSunset ? "NEXT SUNRISE" : "SUNSET"}
           </div>
-          <div className="uv-index-bar">
-            <div
-              className="uv-index-dot"
-              style={{ left: `calc(${uvPercentage}% - 6px)` }}
-            ></div>
-          </div>
         </div>
-
-        {/* Conditionally display either Sunrise or Sunset based on the current time */}
-        <div className="sunset-sunrise-box">
-          <div className="label">
-            <FontAwesomeIcon icon={faSun} className="icon" />
-            <div className="label-text">
-              {isBeforeSunrise ? "SUNRISE" : isAfterSunset ? "NEXT SUNRISE" : "SUNSET"}
-            </div>
-          </div>
-
-          {/* Display time based on the current time */}
-          <div className="time">
-            {isBeforeSunrise
-              ? `${sunriseHour}:${sunriseMinutesStr}`
-              : isAfterSunset
-              ? `${nextSunriseTime.getHours()}:${nextSunriseTime.getMinutes().toString().padStart(2, '0')}`
-              : `${sunsetHour}:${sunsetMinutesStr}`}
-          </div>
-
-          {/* Dynamic sun position along the curve */}
-          <div className="curve">
-        <div className="sun-path"></div>
-        <div className="line"></div>
-        <div
-            className="dot"
-            style={{ left: `calc(${sunPositionPercentage}% - 8px)` }}
-        ></div>
+        <div className="time">
+          {isBeforeSunrise
+            ? `${sunriseHour}:${sunriseMinutesStr}`
+            : isAfterSunset
+            ? `${nextSunriseTime.getHours()}:${nextSunriseTime.getMinutes().toString().padStart(2, '0')}`
+            : `${sunsetHour}:${sunsetMinutesStr}`}
         </div>
-        </div>
+      </div>
 
-        {/* Humidity */}
-        <div className="precipitation-box">
-        <div className="precipitation-label">
-            <FontAwesomeIcon icon={faCloudRain} className="icon" />
-            <div className="label">PRECIPITATION</div>
-        </div>
-        <div className="precipitation-amount">
-            {weatherData.forecast.forecastday[0].day.totalprecip_mm} mm
-        </div>
-        <div className="precipitation-timeframe">in last 24h</div>
-
-        <div className="precipitation-description">
-            {weatherData.forecast.forecastday[0].day.daily_chance_of_rain === 0
-            ? "None expected in next 10 days."
-            : `${weatherData.forecast.forecastday[0].day.daily_chance_of_rain}% chance of rain in the next 10 days.`}
-        </div>
-        </div>
+      {/* Humidity Box */}
+<div className="box humidity-box">
+  <div className="humidity-label">
+    <FontAwesomeIcon icon={faTint} className="icon" />
+    <div className="label">HUMIDITY</div>
+  </div>
+  <div className="humidity-percentage">{weatherData.current.humidity}%</div>
+  <div className="humidity-description">
+    {/* Convert dew point temperature */}
+    The dew point is {convertTemp(weatherData.current.dewpoint_c).toFixed(1)}{tempUnitSymbol} right now.
+  </div>
+</div>
 
 
-
-        {/* Visibility */}
-        <div className="visibility-box">
+      {/* Visibility Box */}
+      <div className="box visibility-box">
         <div className="visibility-label">
-            <FontAwesomeIcon icon={faEye} className="icon" />
-            <div className="label">VISIBILITY</div>
+          <FontAwesomeIcon icon={faEye} className="icon" />
+          <div className="label">VISIBILITY</div>
         </div>
         <div className="visibility-distance">{weatherData.current.vis_km} km</div>
         <div className="visibility-description">
-            {weatherData.current.vis_km >= 20 ? 'Perfectly clear view.' : 'Limited visibility.'}
+          {weatherData.current.vis_km >= 20 ? 'Perfectly clear view.' : 'Limited visibility.'}
         </div>
-        </div>
-
       </div>
 
-      {/* Wind and Feels Like */}
-      <div className="bottom-container">
-      <div className="precipitation-box">
+    {/* Feels Like Box */}
+    <div className="box feels-like-box">
+        <div className="feels-like-label">
+          <FontAwesomeIcon icon={faThermometerHalf} className="icon" />
+          <div className="label">FEELS LIKE</div>
+        </div>
+        <div className="temperature">
+          {convertTemp(weatherData.current.feelslike_c).toFixed(1)}{tempUnitSymbol} {/* Convert "Feels Like" temp */}
+        </div>
+        <div className="description">
+          {weatherData.current.feelslike_c === weatherData.current.temp_c
+            ? "Similar to the actual temperature."
+            : "Feels different from the actual temperature."}
+        </div>
+      </div>
+
+      {/* Precipitation Box */}
+      <div className="box precipitation-box">
         <div className="precipitation-label">
-            <FontAwesomeIcon icon={faCloudRain} className="icon" />
-            <div className="label">PRECIPITATION</div>
+          <FontAwesomeIcon icon={faCloudRain} className="icon" />
+          <div className="label">PRECIPITATION</div>
         </div>
         <div className="precipitation-amount">
-            {weatherData.forecast.forecastday[0].day.totalprecip_mm} mm
+          {weatherData.forecast.forecastday[0].day.totalprecip_mm} mm
         </div>
-        <div className="precipitation-timeframe">in last 24h</div>
-
         <div className="precipitation-description">
-            {weatherData.forecast.forecastday[0].day.daily_chance_of_rain === 0
+          {weatherData.forecast.forecastday[0].day.daily_chance_of_rain === 0
             ? "None expected in next 10 days."
             : `${weatherData.forecast.forecastday[0].day.daily_chance_of_rain}% chance of rain in the next 10 days.`}
         </div>
-        </div>
-
-
-
-        {/* Feels Like */}
-        <div className="feels-like-box">
-          <div className="feels-like-label">
-            <FontAwesomeIcon icon={faThermometerHalf} className="icon" />
-            <div className="label">FEELS LIKE</div>
-          </div>
-          <div className="temperature">{weatherData.current.feelslike_c}°</div>
-          <div className="description">
-            {weatherData.current.feelslike_c === weatherData.current.temp_c
-              ? "Similar to the actual temperature."
-              : "Feels different from the actual temperature."}
-          </div>
-        </div>
       </div>
+
+      {/* Ten Day Forecast */}
+      <TenDayForecast city={weatherData.location.name} apiKey={apiKey} tempUnit={tempUnit} />
+
     </div>
   );
 };

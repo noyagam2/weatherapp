@@ -4,13 +4,36 @@
 }
 
 .search-bar input {
-    padding: 5px; /* Adds space inside the input */
-    border-radius: 20px; /* Gives the input rounded corners */
-    border: 1px solid #ccc; /* Adds a light border */
-    width: 200px; /* Sets a fixed width for the search bar */
-    font-size: 12px; /* Increases the text size for readability */
+    padding: 10px 15px; /* Increased padding for a larger input */
+    border-radius: 20px; /* Keeps the rounded corners */
+    border: 1px solid #ccc; /* Keeps the light border */
+    width: 250px; /* Increase the width of the input */
+    font-size: 16px; /* Larger font size for better readability */
 }
 
 .search-bar input:focus {
     outline: none; /* Removes the default blue outline */
+}
+
+/* Button styling */
+.search-bar button {
+    padding: 10px 15px; /* Increased padding for a larger button */
+    background-color: rgba(255, 255, 255, 0.2); 
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    color: white; /* White text */
+    font-size: 16px; /* Larger font size for better readability */
+    cursor: pointer; /* Changes the cursor to pointer on hover */
+    margin-left: 10px; /* Adds space between the input and the button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Button hover effect */
+.search-bar button:hover {
+    background-color: #0056b3; /* Darken the background color on hover */
+}
+
+/* Button active effect */
+.search-bar button:active {
+    background-color: #004085; /* Even darker background color when clicked */
 }

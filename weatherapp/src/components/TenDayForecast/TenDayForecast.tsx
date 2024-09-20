@@ -4,9 +4,10 @@ import './TenDayForecast.css';
 interface ForecastBoxProps {
   city: string;
   apiKey: string;
+  tempUnit: string;  // Add the tempUnit prop to handle Celsius/Fahrenheit
 }
 
-const ForecastBox = ({ city, apiKey }: ForecastBoxProps) => {
+const ForecastBox = ({ city, apiKey, tempUnit }: ForecastBoxProps) => {
   const [forecast, setForecast] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,8 +40,16 @@ const ForecastBox = ({ city, apiKey }: ForecastBoxProps) => {
     fetchForecast();
   }, [city, apiKey]);
 
-   // Helper function to format the date as "Today", "Tomorrow", or day names like "Thursday"
-   const formatDayName = (dateString: string, index: number) => {
+  // Helper function to convert Celsius to Fahrenheit
+  const convertTemp = (tempCelsius: number) => {
+    return tempUnit === 'fahrenheit' ? (tempCelsius * 9) / 5 + 32 : tempCelsius;
+  };
+
+  // Symbol for temperature unit
+  const tempUnitSymbol = tempUnit === 'fahrenheit' ? '°F' : '°C';
+
+  // Helper function to format the date as "Today", "Tomorrow", or day names like "Thursday"
+  const formatDayName = (dateString: string, index: number) => {
     const today = new Date();
     const targetDate = new Date(dateString);
 
@@ -69,7 +78,8 @@ const ForecastBox = ({ city, apiKey }: ForecastBoxProps) => {
               className="forecast-icon"
             />
             <span className="forecast-temp">
-              {Math.round(day.day.mintemp_c)}° - {Math.round(day.day.maxtemp_c)}°
+              {/* Convert and display min/max temperatures with unit */}
+              {Math.round(convertTemp(day.day.mintemp_c))}{tempUnitSymbol} - {Math.round(convertTemp(day.day.maxtemp_c))}{tempUnitSymbol}
             </span>
           </li>
         ))}

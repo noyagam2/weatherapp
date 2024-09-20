@@ -1,417 +1,322 @@
+/* Main container grid layout */
 .main-container {
   display: grid;
-  grid-template-columns: repeat(20, 20fr); /* Three columns */
-  grid-template-rows: auto auto auto; /* Three rows for flexible content */
-  grid-gap: 40px;
+  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+  grid-gap: 15px; /* Smaller gap between elements */
+  font-family: 'Helvetica Neue', 'Roboto', sans-serif;
+  max-width: 1000px; /* Limit the width */
+  width: 100%; /* Ensure it only grows up to max-width */
+  margin: 50px auto 0; /* Add top margin to push the grid down */
   padding: 10px;
-  max-width: 1200px;
-  max-height: 1700px;
-  margin: auto auto;
+  box-sizing: border-box; /* Include padding in the width */
+  max-height: 90vh; /* Limit height to 90% of the viewport height */
+  grid-template-rows: 230px 200px repeat(4, 150px); /* First row larger for weather info, other rows 150px */
 }
 
-/* Weather info spans across the top (full width) */
+
+/* General box styling */
+.box {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px; /* Reduced padding for more compact look */
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 150px; /* Reduced height for uniformity */
+  max-height: 200px; /* Set a lower max height */
+  overflow: hidden; /* Hide overflow content */
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Roboto', sans-serif;
+}
+
+/* Weather info box styling */
 .weather-info {
-  grid-column: 1 / -1; /* Span across all three columns */
+  grid-column: span 3;
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  border-radius: 12px;
+  padding: 15px; /* Smaller padding */
+  padding-bottom: 30px; /* Add padding at the bottom */
   text-align: center;
   color: white;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.2;
-  padding: 20px;
+  line-height: 0.3;
+  max-height: 200px; /* Reduced height for weather info box */
+  overflow: hidden;
+  font-family: 'Helvetica Neue', 'Roboto', sans-serif;
 }
 
-.weather-info p {
-  font-size: 24px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 0.5; 
-}
-
-.weather-info h3 {
+.weather-info h3{
   font-size: 50px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 0.5; /* Adjust this value to control the line height */
 }
 
-/* 24-Hour Forecast (Left side, span 2 columns) */
-.hourly-forecast-box {
-  grid-column: 1 / 15; /* Span two columns */
-  grid-row: 2;
+.weather-info p{
+  font-size: 20px;
+}
+
+/* Map and forecast box styles */
+.map-box, .hourly-forecast-box, .ten-day-forecast-box {
+  grid-column: span 3;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  max-height: 200px;
-  padding: 20px;
-}
-
-/* Map on the right */
-.map-box {
-  grid-column: 15 / -1; /* Right side */
-  grid-row: 3 / -1; /* Span vertically across two rows */
-  /* background-color: rgba(255, 255, 255, 0.1); */
-  border-radius: 8px;
-  padding: 20px;
-  width: 150%;
-  height: 100px;
-  margin-top: -20px; /* Moves the map 20px upwards */
-  margin-left: 0px;
-
-}
-
-/* 10-Day Forecast (Left side below 24-Hour Forecast) */
-.ten-day-forecast-box {
-  grid-column: 1 / 7; /* Left side */
-  grid-row: 3 / 4;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 35px;
-  max-width: 600px;
-  max-height: 470px;
-}
-
-/* Right-side rectangles */
-.right-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  /* grid-template-rows: repeat(5, 1fr); */
-  grid-column: 7 / 10; /* Right side next to the 10-Day Forecast */
-  grid-row: 3; /* Align with the 10-Day Forecast */
-  grid-gap: 60px;
-}
-
-.uv-index-box, .sunrise-sunset-box, .humidity-box, .visibility-box {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 12px;
+  padding: 15px; /* Smaller padding */
   text-align: center;
-  padding: 20px;
-  height: 180px; /* Adjusted for larger boxes */
-  width: 170px;
+  /* max-height: 300px; */
+  overflow: hidden;
+  font-family: 'Helvetica Neue', 'Roboto', sans-serif;
 }
 
-.uv-index-box, .humidity-box{
-  width: 170px;
+/* Specific box styling (UV Index, Sunrise/Sunset, etc.) */
+.uv-index-box, .humidity-box, .visibility-box, .precipitation-box, .feels-like-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space content evenly */
+  padding: 8spx; /* Reduced padding */
+  /* max-height: 180px; */
+  overflow: hidden; /* Hide overflow */
+  font-family: 'Helvetica Neue', 'Roboto', sans-serif;
+
 }
 
-/* Wind and Feels Like below the map */
-.bottom-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-
-  grid-column: 15 / -1; /* Right side */
-  grid-row: 2; /* Below the map */
-  grid-gap: 60px;
+.visibility-distance{
+  font-size: 30px;
 }
 
-.wind-box, .feels-like-box {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  text-align: center;
-  padding:20px;
-  padding-bottom: 100px;
-  height: 80px; /* Adjusted for larger boxes */
-  width: 100%;
+.feels-like-box .temperature{
+  font-size: 30px;
 }
 
-/* Responsive Design */
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .main-container {
-    grid-template-columns: 1fr; /* Stack everything in one column */
+    grid-template-columns: 1fr; /* Single column layout */
   }
 
-  .right-container, .bottom-container {
-    grid-template-columns: 1fr; /* Stack boxes in a single column */
+  .map-box, .hourly-forecast-box, .ten-day-forecast-box, .weather-info {
+    grid-column: 1 / -1; /* Spans full width */
   }
+}
 
-  .map-box, .hourly-forecast-box, .ten-day-forecast-box {
-    grid-column: 1; /* Full width for smaller screens */
-  }
+.hourly-forecast-box{
+  grid-column: 1 / 3;
+  grid-row: 2;
+}
+
+.map-box{
+  grid-column: 3;
+  grid-row: 2 / 3;
+  align-items: center;
+}
+
+.ten-day-forecast-box {
+  grid-column: 1 / 2; 
+  grid-row: 3 / 6; 
+}
+
+.uv-index-box{
+  grid-column: 2 / 3;
+  grid-row: 3; 
+}
+
+.sunrise-sunset-box{
+  grid-column: 3 / 4;
+  grid-row: 3;
+}
+
+.humidity-box{
+  grid-column: 2 / 3;
+  grid-row: 4; 
+}
+
+.visibility-box{
+  grid-column: 3 / 4;
+  grid-row: 4; 
+}
+
+.feels-like-box{
+  grid-column: 3 / 4;
+  grid-row: 5; 
+}
+
+.precipitation-box{
+  grid-column: 2 / 3;
+  grid-row: 5; 
+}
+
+
+
+
+.uv-index-description {
+  line-height: 0.2; /* Reduce the line spacing */
+  margin: 0; /* Remove default margin from block elements */
+  padding: 0; /* Remove padding if necessary */
+}
+
+.uv-index-header {
+  display: flex;
+  align-items: center; /* Vertically center-align icon and text */
+  justify-content: center; /* Center both icon and text horizontally */
+}
+
+.uv-icon {
+  margin-right: 8px; /* Add some space between the icon and the text */
+  color: white; /* Optional: Set the icon color */
+  font-size: 1.2rem; /* Optional: Adjust the size of the icon */
+}
+
+.uv-index-value{
+  font-size: 30px;
+}
+
+
+.sunset-sunrise-box .label {
+  display: flex;
+  align-items: center; /* Vertically center the icon and text */
+  justify-content: center; /* Center both icon and text horizontally */
+}
+
+.sunset-sunrise-box .icon {
+  margin-right: 8px; /* Add space between the icon and the text */
+  color: white; /* Optional: Change the color of the icon */
+  font-size: 1.2rem; /* Optional: Adjust icon size */
+}
+
+.label-text {
+  color: white; /* Optional: Ensure the text is white */
+  font-size: 1.2rem; /* Adjust font size as needed */
+}
+
+.humidity-box .humidity-label {
+  display: flex;
+  align-items: center; /* Vertically center the icon and text */
+  justify-content: center; /* Center both icon and text horizontally */
+}
+
+.humidity-box .icon {
+  margin-right: 8px; /* Add space between the icon and the text */
+  color: white; /* Optional: Set the color of the icon */
+  font-size: 1.2rem; /* Adjust the icon size */
+}
+
+.humidity-box .label {
+  color: white; /* Optional: Ensure the text is white */
+  font-size: 1.2rem; /* Adjust font size as needed */
+  padding: 8px;
+}
+
+.humidity-box .humidity-percentage{
+  font-size: 30px;
+}
+
+.visibility-box .visibility-label {
+  display: flex;
+  align-items: center; /* Vertically center the icon and text */
+  justify-content: center; /* Center both icon and text horizontally */
+}
+
+.visibility-box .icon {
+  margin-right: 8px; /* Add space between the icon and the text */
+  color: white; /* Optional: Set the color of the icon */
+  font-size: 1.2rem; /* Adjust the icon size */
+}
+
+.visibility-box .label {
+  color: white; /* Optional: Ensure the text is white */
+  font-size: 1.2rem; /* Adjust font size as needed */
+  padding: 8px;
+}
+.feels-like-box .feels-like-label {
+  display: flex;
+  align-items: center; /* Vertically center the icon and text */
+  justify-content: center; /* Center both icon and text horizontally */
+}
+
+.feels-like-box .icon {
+  margin-right: 8px; /* Add space between the icon and the text */
+  color: white; /* Optional: Set the color of the icon */
+  font-size: 1.2rem; /* Adjust the icon size */
+}
+
+.feels-like-box .label {
+  color: white; /* Optional: Ensure the text is white */
+  font-size: 1.2rem; /* Adjust font size as needed */
+  padding: 8px;
+}
+
+.precipitation-box .precipitation-label {
+  display: flex;
+  align-items: center; /* Vertically center the icon and text */
+  justify-content: center; /* Center both icon and text horizontally */
+}
+
+.precipitation-box .icon {
+  margin-right: 8px; /* Add space between the icon and the text */
+  color: white; /* Optional: Set the color of the icon */
+  font-size: 1.2rem; /* Adjust the icon size */
+}
+
+.precipitation-box .label {
+  color: white; /* Optional: Ensure the text is white */
+  font-size: 1.2rem; /* Adjust font size as needed */
+  padding: 8px;
+}
+
+.precipitation-amount{
+  font-size: 30px;
+}
+
+/* Box styling for sunset-sunrise */
+.sunset-sunrise-box {
+  grid-column: 3 / 4;  /* Confirm grid placement */
+  grid-row: 3;         /* Confirm grid placement */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Center vertically */
+  align-items: center;      /* Center horizontally */
+  
+  height: 100%;             /* Ensure it takes full grid height */
+  width: 100%;              /* Ensure it takes full grid width */
+  
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  text-align: center;       /* Ensure the text is centered */
+}
+
+/* Center content inside the 'label' and 'time' divs */
+.sunset-sunrise-box .label, 
+.sunset-sunrise-box .time {
+  display: flex;
+  justify-content: center;  /* Horizontally center content */
+  align-items: center;      /* Vertically center content */
+}
+
+
+/* Icon and other content inside label */
+.sunset-sunrise-box .label {
+  gap: 8px;                 /* Add space between icon and any text */
+}
+
+.sunset-sunrise-box .label .icon {
+  font-size: 1.5rem;        /* Adjust size of the icon */
+  color: white;             /* Set the icon color */
+}
+
+.sunset-sunrise-box .time {
+  font-size: 30px;        /* Adjust size of the time text */
+  color: white;             /* Ensure the time text is white */
+  margin-top: 10px;         /* Add space between label and time */
 }
 
 
 .uv-index-box {
-  /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)); */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
-
-  border-radius: 12px; /* Smooth rounded edges */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 20px;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #fff;
-  width: 100%;
-  height: 200px; /* Adjust height to fit description */
-}
-
-.uv-index-box p {
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.uv-index-value {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.uv-index-description {
-  font-size: 1.1rem;
-  font-weight: normal;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 12px;
-}
-
-.uv-index-bar {
-  position: relative; /* For dot placement */
-  height: 8px;
-  background: linear-gradient(90deg, green, yellow, orange, red);
-  border-radius: 4px;
-  width: 80%;
-  margin: 0 auto;
-  margin-bottom: 10px; /* Space for the dot */
-}
-
-.uv-index-dot {
-  position: absolute;
-  top: -0.5px; /* Adjust dot position vertically */
-  left: calc(50% - 6px); /* Adjust dot position horizontally, change percentage as needed */
-  width: 8px;
-  height: 8px;
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-}
-.feels-like-box {
-  border-radius: 12px; /* Rounded corners */
-  padding: 20px;
-  text-align: center;
-  color: white;
-  font-family: 'Roboto', sans-serif; /* Clean, modern font */
-  width: 100%; /* Full width of the container */
-  height: 180px; /* Adjust the height */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
-}
-
-.feels-like-box .feels-like-label {
-  display: flex;
-  align-items: center; /* Vertically center icon and text */
-  justify-content: center; /* Center horizontally */
-  gap: 8px; /* Add some space between the icon and text */
-}
-
-.feels-like-box .icon {
-  font-size: 1.5rem;
-}
-
-.feels-like-box .label {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.feels-like-box .temperature {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.feels-like-box .description {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Main container for the curve */
-.sunset-sunrise-box {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 12px; /* Smooth rounded edges */
-
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center the elements horizontally */
-  justify-content: center; /* Center the content vertically */
-  width: 100%;
-  padding: 20px;
-  text-align: center;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-}
-
-.sunset-sunrise-box .label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.sunset-sunrise-box .icon {
-  font-size: 1.5rem;
-  margin-right: 8px;
-}
-
-.sunset-sunrise-box .time {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 12px; /* Add space between time and curve */
-}
-
-/* Main container for the curve */
-.sunset-sunrise-box .curve {
-  width: 80%;
-  height: 100px; /* Increase height to create a more noticeable arc */
-  position: relative;
-  margin-top: 10px;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px; /* Add margin below the curve */
-}
-
-/* Sun path curve */
-.sunset-sunrise-box .curve .sun-path {
-  position: absolute;
-  top: 20px; /* Shift up to create the arc */
-  width: 100%;
-  height: 100px; /* Matches the height of the curve */
-  border-top: 2px solid rgba(255, 255, 255, 0.8); /* Light gradient effect */
-  border-radius: 50%; /* Makes it an arc */
-  background: transparent;
+  padding-bottom: 20px; /* Adjust the value as needed */
 }
 
 
-/* The dot representing the sun */
-.sunset-sunrise-box .curve .dot {
-  position: absolute;
-  top: 15px; /* Position above the line */
-  width: 16px;
-  height: 16px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 0.5) 70%); /* Sun-like glow */
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Slight glow effect */
+.uv-index-description p {
+  padding-bottom: 0.5px; /* Add padding-bottom if needed */
 }
 
-.humidity-box {
-  background: rgba(255, 255, 255, 0.1); /* Transparent background */
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  width: 100%; /* Full width */
-  height: 200px; /* Adjust the height to fit the content */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.humidity-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.humidity-box .icon {
-  font-size: 1.5rem;
-  margin-right: 8px;
-}
-
-.humidity-percentage {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.humidity-description {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.visibility-box {
-  background: rgba(255, 255, 255, 0.1); /* Transparent background */
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  width: 100%; /* Full width */
-  height: 200px; /* Adjust the height to fit the content */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.visibility-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.visibility-box .icon {
-  font-size: 1.5rem;
-  margin-right: 8px;
-}
-
-.visibility-distance {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.visibility-description {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-
-.precipitation-box {
-  background: rgba(255, 255, 255, 0.1); /* Transparent background */
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  width: 100%; /* Full width */
-  height: 200px; /* Adjust the height to fit the content */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.precipitation-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.precipitation-box .icon {
-  font-size: 1.5rem;
-  margin-right: 8px;
-}
-
-.precipitation-amount {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.precipitation-timeframe {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 8px;
-}
-
-.precipitation-description {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}

@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
-// import WeatherInfo from './components/WeatherInfo/WeatherInfo';
-// import InfoBoxes from './components/InfoBoxes/InfoBoxes';
 import SettingsModal from './components/SettingsModal/SettingsModal';
 import { WeatherData } from './types';
 import MainContainer from './components/MainContainer/MainContainer';
-// import HourlyForecast from './components/HourlyForecast/HourlyForecast'; 
-
-
 
 const API_KEY = '286127cbb1534e36bb2110806240409';
 
 function App() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [cityInput, setCityInput] = useState('');
-  const [tempUnit, setTempUnit] = useState('celsius');
-  const [windUnit, setWindUnit] = useState('kmh');
+  const [tempUnit, setTempUnit] = useState('celsius'); // Removed windUnit
 
   useEffect(() => {
     // Load saved settings from localStorage
     const savedTempUnit = localStorage.getItem('temperatureUnit') || 'celsius';
-    const savedWindUnit = localStorage.getItem('windUnit') || 'kmh';
     const savedDefaultCity = localStorage.getItem('defaultCity') || '';
     const useLocation = localStorage.getItem('useLocation') === 'true';
 
-    setTempUnit(savedTempUnit);
-    setWindUnit(savedWindUnit);
+    setTempUnit(savedTempUnit); // Only tempUnit is loaded
 
     // Fetch weather based on saved settings
     if (useLocation) {
@@ -34,48 +26,50 @@ function App() {
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-          fetchWeatherByCoordinates(lat, lon);
+          fetchWeatherByCoordinates(lat, lon, savedTempUnit); // Fetch without windUnit
         },
         (error) => {
           console.log('Geolocation error:', error);
           if (savedDefaultCity) {
-            fetchWeatherByCity(savedDefaultCity);
+            fetchWeatherByCity(savedDefaultCity, savedTempUnit); // Fetch without windUnit
           } else {
-            fetchWeatherByCity('London'); // Default to London on error
+            fetchWeatherByCity('London', savedTempUnit); // Default to London on error
           }
         }
       );
     } else if (savedDefaultCity) {
-      fetchWeatherByCity(savedDefaultCity);
+      fetchWeatherByCity(savedDefaultCity, savedTempUnit); // Fetch without windUnit
     }
   }, []);
 
-  const fetchWeatherByCity = (city: string) => {
+  useEffect(() => {
+    if (cityInput || localStorage.getItem('defaultCity')) {
+      fetchWeatherByCity(cityInput || localStorage.getItem('defaultCity') || 'London', tempUnit); // Fetch without windUnit
+    }
+  }, [tempUnit]);
+
+  const fetchWeatherByCity = (city: string, tempUnit: string) => {
     fetch(`/v1/forecast.json?key=${API_KEY}&q=${city}&days=10`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Log the data to inspect the response
         setWeatherData(data);
       })
       .catch((error) => console.error('Error fetching weather data:', error));
   };
-  
 
-  const fetchWeatherByCoordinates = (lat: number, lon: number) => {
+  const fetchWeatherByCoordinates = (lat: number, lon: number, tempUnit: string) => {
     fetch(`/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=10`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Log the data to inspect the response
         setWeatherData(data);
       })
       .catch((error) => console.error('Error fetching weather data by coordinates:', error));
   };
-  
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (cityInput) {
-      fetchWeatherByCity(cityInput);
+      fetchWeatherByCity(cityInput, tempUnit); // Fetch without windUnit
     }
   };
 
@@ -92,7 +86,7 @@ function App() {
 
     let backgroundImage = '';
 
-     if (condition.includes('sunny')) {
+    if (condition.includes('sunny')) {
       backgroundImage = isDay
         ? 'url("https://www.thecalifornian.com/gcdn/-mm-/e5c305e00d80354d1c0350948b3ccc39c5d4956e/c=0-202-3867-2377/local/-/media/Salinas/2015/03/19/B9316661963Z.1_20150319105958_000_GLQA8VSAM.1-0.jpg?width=660&height=372&fit=crop&format=pjpg&auto=webp")'
         : 'url("https://media.istockphoto.com/id/1397030090/photo/colorful-pastel-sky-with-clouds-at-beautiful-sunset-as-natural-background.jpg?s=612x612&w=0&k=20&c=WrRCAvlZX2jOQ8UTDHgiTs2ZhYs2aO8uw4sWJASxo5c=")';
@@ -121,18 +115,6 @@ function App() {
     body.style.backgroundPosition = 'center';
   };
 
-  useEffect(() => {
-    document.documentElement.style.height = '100%';  // Set html height to 100%
-    document.body.style.height = '100%';  // Ensure body height is 100%
-    document.body.style.margin = '0';     // Remove margin if necessary
-  }, []);
-
-  useEffect(() => {
-    // Ensure the body covers the full viewport height
-    document.body.style.height = '100%';
-    document.body.style.minHeight = '100vh';  // At least 100% of viewport height
-  }, []);
-
   return (
     <>
       <SearchBar
@@ -141,28 +123,21 @@ function App() {
         cityInput={cityInput}
         setCityInput={setCityInput}
       />
-       <div className="App">
+      <div className="App">
         {weatherData ? (
           <>
-           <MainContainer
-            weatherData={weatherData}
-            tempUnit={tempUnit}
-            windUnit={windUnit}
-            apiKey={API_KEY}  // Pass API_KEY as a prop
-          />
-
-            {/* <HourlyForecast city={weatherData.location.name} apiKey={API_KEY} /> */}
+            <MainContainer
+              weatherData={weatherData}
+              tempUnit={tempUnit}
+              apiKey={API_KEY}  // Pass API_KEY as a prop
+            />
           </>
         ) : (
           <p>Loading...</p>
         )}
       </div>
-
-      {/* <WeatherInfo weatherData={weatherData} /> */}
-      {/* <InfoBoxes weatherData={weatherData} tempUnit={tempUnit} windUnit={windUnit} /> */}
       <SettingsModal
         setTempUnit={setTempUnit}
-        setWindUnit={setWindUnit}
         fetchWeatherByCity={fetchWeatherByCity}
         fetchWeatherByCoordinates={fetchWeatherByCoordinates}
       />

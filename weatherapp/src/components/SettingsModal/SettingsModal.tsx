@@ -4,30 +4,26 @@ import "./SettingsModal.css";
 const API_KEY = '286127cbb1534e36bb2110806240409';
 
 interface SettingsModalProps {
-  setTempUnit: (unit: string) => void;
-  setWindUnit: (unit: string) => void;
-  fetchWeatherByCity: (city: string, tempUnit: string, windUnit: string) => void;
-  fetchWeatherByCoordinates: (lat: number, lon: number, tempUnit: string, windUnit: string) => void;
+  setTempUnit: (unit: string) => void;  // Restore setTempUnit as a prop
+  fetchWeatherByCity: (city: string, tempUnit: string) => void;
+  fetchWeatherByCoordinates: (lat: number, lon: number, tempUnit: string) => void;
 }
 
-const SettingsModal = ({ setTempUnit, setWindUnit, fetchWeatherByCity, fetchWeatherByCoordinates }: SettingsModalProps) => {
+const SettingsModal = ({ setTempUnit, fetchWeatherByCity, fetchWeatherByCoordinates }: SettingsModalProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [tempUnit, setTemp] = useState('celsius');
-  const [windUnit, setWind] = useState('kmh');
   const [defaultCity, setDefaultCity] = useState('');
   const [useLocation, setUseLocation] = useState(false);
-  const [citySuggestions, setCitySuggestions] = useState([]); // State to store city suggestions
-  const [showSuggestions, setShowSuggestions] = useState(false); // State to control visibility of suggestions
+  const [citySuggestions, setCitySuggestions] = useState([]); 
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     // Load saved settings from localStorage on mount
     const savedTempUnit = localStorage.getItem('temperatureUnit') || 'celsius';
-    const savedWindUnit = localStorage.getItem('windUnit') || 'kmh';
     const savedDefaultCity = localStorage.getItem('defaultCity') || '';
     const savedUseLocation = localStorage.getItem('useLocation') === 'true';
 
     setTemp(savedTempUnit);
-    setWind(savedWindUnit);
     setDefaultCity(savedDefaultCity);
     setUseLocation(savedUseLocation);
   }, []);
@@ -35,60 +31,54 @@ const SettingsModal = ({ setTempUnit, setWindUnit, fetchWeatherByCity, fetchWeat
   const handleSave = () => {
     // Save settings in localStorage
     localStorage.setItem('temperatureUnit', tempUnit);
-    localStorage.setItem('windUnit', windUnit);
     localStorage.setItem('defaultCity', defaultCity);
     localStorage.setItem('useLocation', String(useLocation));
 
-    setTempUnit(tempUnit);
-    setWindUnit(windUnit);
+    setTempUnit(tempUnit);  // This will call the function passed from the parent component
 
     // Fetch weather data based on settings
     if (useLocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-        fetchWeatherByCoordinates(lat, lon, tempUnit, windUnit);
+        fetchWeatherByCoordinates(lat, lon, tempUnit);
       });
     } else if (defaultCity) {
-      fetchWeatherByCity(defaultCity, tempUnit, windUnit);
+      fetchWeatherByCity(defaultCity, tempUnit);
     }
 
     setModalVisible(false);
     alert('Settings Saved');
   };
 
-  // Fetch city suggestions from the API
   const fetchCitySuggestions = async (query: string) => {
     try {
       const response = await fetch(`/v1/search.json?key=${API_KEY}&q=${query}`);
       const cities = await response.json();
       setCitySuggestions(cities);
-      setShowSuggestions(true); // Show suggestions when we get data
+      setShowSuggestions(true); 
     } catch (error) {
       console.error('Error fetching city suggestions:', error);
     }
   };
 
-  // Handle user input in the city field
   const handleCityInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
-
     setDefaultCity(query);
 
     if (query.length > 2) {
       fetchCitySuggestions(query);
     } else {
       setCitySuggestions([]);
-      setShowSuggestions(false); // Hide suggestions if query is too short
+      setShowSuggestions(false); 
     }
   };
 
-  // Handle user selecting a city from the suggestions list
   const handleCitySelect = (city: string) => {
     setDefaultCity(city);
-    setUseLocation(false); // Disable location when city is selected
-    setShowSuggestions(false); // Hide suggestions after selecting
-    localStorage.setItem('defaultCity', city); // Save selected city to localStorage
+    setUseLocation(false); 
+    setShowSuggestions(false); 
+    localStorage.setItem('defaultCity', city); 
   };
 
   return (
@@ -105,15 +95,6 @@ const SettingsModal = ({ setTempUnit, setWindUnit, fetchWeatherByCity, fetchWeat
             <option value="fahrenheit">Fahrenheit (°F)</option>
           </select>
 
-          <label htmlFor="wind-unit">Wind Unit:</label>
-          <select id="wind-unit" value={windUnit} onChange={(e) => setWind(e.target.value)}>
-            <option value="kmh">Kilometers per hour (km/h)</option>
-            <option value="mph">Miles per hour (mph)</option>
-            <option value="m/s">Meters per second (m/s)</option>
-            <option value="bft">Beaufort (bft)</option>
-            <option value="kn">Knots (kn)</option>
-          </select>
-
           {/* Toggle for Use My Location */}
           <label htmlFor="use-location-toggle" className="toggle-container">
             Use My Location
@@ -125,7 +106,6 @@ const SettingsModal = ({ setTempUnit, setWindUnit, fetchWeatherByCity, fetchWeat
             />
           </label>
 
-
           {/* Conditionally render the city input if Use Location is not checked */}
           {!useLocation && (
             <>
@@ -134,7 +114,7 @@ const SettingsModal = ({ setTempUnit, setWindUnit, fetchWeatherByCity, fetchWeat
                 type="text"
                 id="default-city"
                 value={defaultCity}
-                onChange={handleCityInput} // Handle input changes
+                onChange={handleCityInput} 
               />
 
               {showSuggestions && citySuggestions.length > 0 && (
