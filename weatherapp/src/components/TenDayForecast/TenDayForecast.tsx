@@ -63,7 +63,7 @@ const ForecastBox = ({ city, apiKey, tempUnit }: ForecastBoxProps) => {
   };
 
   if (error) return <p>Error: {error}</p>;
-  if (!forecast.length) return <p>Loading!!...</p>;
+  if (!forecast.length) return <p>Loading...</p>;
 
   return (
     <div className="ten-day-forecast-box">

@@ -96,7 +96,7 @@ function App() {
         : 'url("https://static.vecteezy.com/system/resources/previews/042/197/449/non_2x/ai-generated-sky-with-rain-background-free-photo.jpg")';
     } else if (condition.includes('cloud')) {
       backgroundImage = isDay
-        ? 'url("https://static.vecteezy.com/system/resources/thumbnails/007/354/009/small/white-fluffy-clouds-with-blue-sky-on-sunny-day-beautiful-summer-cloudy-sky-background-free-photo.jpg")'
+        ? 'url("https://media.istockphoto.com/id/1324413691/photo/beautiful-sky-with-white-clouds.jpg?s=612x612&w=0&k=20&c=40a8JIoRJ1BAI4XeyEouZl0QbVAJToDBRQn31S3FGzk=")'
         : 'url("https://t3.ftcdn.net/jpg/00/92/57/76/360_F_92577670_M5qmsjtBd36X6YD7b2zUwmqqUXOmwVn9.jpg")';
     } else if (condition.includes('snow')) {
       backgroundImage = isDay
