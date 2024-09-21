@@ -4,8 +4,9 @@ import HourlyForecast from '../HourlyForecast/HourlyForecast';
 import UVIndexBox from '../UVIndexBox/UVIndexBox';
 import './MainContainer.css';
 import SunriseSunsetBox from '../SunriseSunsetBox/SunriseSunsetBox';  
-
 import { WeatherData } from '../../types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faTint, faCloudRain, faTemperatureHigh, faEye } from '@fortawesome/free-solid-svg-icons';  // Import icons
 
 interface MainContainerProps {
   weatherData: WeatherData;
@@ -69,7 +70,6 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
   console.log("Current Time:", currentTime);
 
 
-
   return (
     <div className="main-container">
       {/* Main weather info */}
@@ -95,8 +95,8 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
         currentTime={currentTime}
       />
 
-      {/* UV Index Box */}
-      <UVIndexBox uvIndex={weatherData.current.uv} />
+       {/* UV Index Box */}
+       <UVIndexBox uvIndex={weatherData.current.uv} />
 
       {/* Map */}
       <div className="map-box">
@@ -113,8 +113,10 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
 
       {/* Humidity Box */}
       <div className="box humidity-box">
-        <div className="humidity-label">
-          <div className="label">HUMIDITY</div>
+        <div className="humidity-header">
+          {/* Add icon for Humidity */}
+          <FontAwesomeIcon icon={faTint} className="header-icon" />
+          <span>Humidity</span>
         </div>
         <div className="humidity-percentage">{weatherData.current.humidity}%</div>
         <div className="humidity-description">
@@ -124,8 +126,10 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
 
       {/* Visibility Box */}
       <div className="box visibility-box">
-        <div className="visibility-label">
-          <div className="label">VISIBILITY</div>
+        <div className="visibility-header">
+          {/* Add icon for Visibility */}
+          <FontAwesomeIcon icon={faEye} className="header-icon" />
+          <span>Visibility</span>
         </div>
         <div className="visibility-distance">{weatherData.current.vis_km} km</div>
         <div className="visibility-description">
@@ -135,8 +139,10 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
 
       {/* Feels Like Box */}
       <div className="box feels-like-box">
-        <div className="feels-like-label">
-          <div className="label">FEELS LIKE</div>
+        <div className="feels-like-header">
+          {/* Add icon for Feels Like */}
+          <FontAwesomeIcon icon={faTemperatureHigh} className="header-icon" />
+          <span>Feels Like</span>
         </div>
         <div className="temperature">
           {convertTemp(weatherData.current.feelslike_c).toFixed(1)}{tempUnitSymbol}
@@ -150,8 +156,10 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
 
       {/* Precipitation Box */}
       <div className="box precipitation-box">
-        <div className="precipitation-label">
-          <div className="label">PRECIPITATION</div>
+        <div className="precipitation-header">
+          {/* Add icon for Precipitation */}
+          <FontAwesomeIcon icon={faCloudRain} className="header-icon" />
+          <span>Precipitation</span>
         </div>
         <div className="precipitation-amount">
           {weatherData.forecast.forecastday[0].day.totalprecip_mm} mm
@@ -165,7 +173,6 @@ const MainContainer = ({ weatherData, tempUnit, apiKey }: MainContainerProps) =>
 
       {/* Ten Day Forecast */}
       <TenDayForecast city={weatherData.location.name} apiKey={apiKey} tempUnit={tempUnit} />
-
     </div>
   );
 };

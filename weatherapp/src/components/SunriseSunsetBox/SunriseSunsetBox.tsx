@@ -1,5 +1,7 @@
 import React from 'react';
 import './SunriseSunsetBox.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
 interface SunriseSunsetProps {
   sunrise: string;
@@ -20,22 +22,27 @@ const SunriseSunsetBox: React.FC<SunriseSunsetProps> = ({ sunrise, sunset, curre
   let headerTime = '';
   let footerLabel = '';
   let footerTime = '';
+  let icon = faSun;  // Default to sunrise icon
+
 
   if (totalCurrentMinutes < totalSunriseMinutes) {
     header = 'SUNRISE';
     headerTime = sunrise;
     footerLabel = 'Next Sunset';
     footerTime = sunset;
+    icon = faSun;  // Sunrise icon
   } else if (totalCurrentMinutes < totalSunsetMinutes) {
     header = 'SUNSET';
     headerTime = sunset;
     footerLabel = 'Next Sunrise';
     footerTime = sunrise;
+    icon = faMoon;  // Sunset icon
   } else {
     header = 'SUNRISE';
     headerTime = sunrise;
     footerLabel = 'Next Sunset';
     footerTime = sunset;
+    icon = faSun;  // Sunrise icon
   }
 
   const dayProgressPercentage = ((totalCurrentMinutes - totalSunriseMinutes) / (totalSunsetMinutes - totalSunriseMinutes)) * 100;
@@ -50,7 +57,10 @@ const SunriseSunsetBox: React.FC<SunriseSunsetProps> = ({ sunrise, sunset, curre
 
   return (
     <div className="sunrise-sunset-card">
-      <div className="header">{header}</div>
+      <div className="header">
+        {/* Add the icon dynamically based on whether it's sunrise or sunset */}
+        <FontAwesomeIcon icon={icon} className="header-icon" /> {header}
+      </div>
       <div className="time">{headerTime}</div>
 
       <div className="curve-container">

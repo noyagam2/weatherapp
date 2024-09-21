@@ -1,5 +1,7 @@
 import React from 'react';
 import './UVIndexBox.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun } from '@fortawesome/free-solid-svg-icons';  // Icon for UV index
 
 interface UVIndexBoxProps {
   uvIndex: number;
@@ -36,7 +38,10 @@ const UVIndexBox: React.FC<UVIndexBoxProps> = ({ uvIndex }) => {
 
   return (
     <div className="uv-index-card">
-      <div className="uv-index-header">UV INDEX</div>
+     {/* Header with icon */}
+     <div className="uv-index-header">
+        <FontAwesomeIcon icon={faSun} className="header-icon" /> UV INDEX
+      </div>
 
       <div className="uv-index-value">{uvIndex}</div>
       <div className="uv-index-severity">{severity}</div>

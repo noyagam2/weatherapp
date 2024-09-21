@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './TenDayForecast.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 interface ForecastBoxProps {
   city: string;
@@ -67,7 +69,9 @@ const ForecastBox = ({ city, apiKey, tempUnit }: ForecastBoxProps) => {
 
   return (
     <div className="ten-day-forecast-box">
-      <h3>7-DAY FORECAST</h3>
+      <h3 className="forecast-header">
+        <FontAwesomeIcon icon={faCalendarAlt} className="header-icon" /> 7-DAY FORECAST
+      </h3>
       <ul className="forecast-list">
         {forecast.map((day: any, index: number) => (
           <li key={day.date} className="forecast-day">

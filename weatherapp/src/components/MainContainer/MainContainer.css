@@ -375,3 +375,10 @@
 .precipitation-box {
   animation-delay: 1s;
 }
+
+/* Header icon styling */
+.header-icon {
+  margin-right: 8px;  /* Add space between the icon and text */
+  font-size: 1.2rem;  /* Adjust icon size */
+  color: white;       /* Icon color */
+}
